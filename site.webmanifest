@@ -1,0 +1,16 @@
+{
+ "name": "Pearl Courtyard, Varanasi",
+ "short_name": "Pearl Courtyard",
+ "description": "Heritage boutique hotel in Godowlia, Varanasi.",
+ "start_url": "/",
+ "display": "standalone",
+ "background_color": "#f8f3e9",
+ "theme_color": "#2b1d16",
+ "icons": [
+  {
+   "src": "/assets/img/favicon.svg",
+   "sizes": "any",
+   "type": "image/svg+xml"
+  }
+ ]
+}

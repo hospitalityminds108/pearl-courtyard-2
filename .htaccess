@@ -1,0 +1,51 @@
+# Pearl Courtyard — Apache configuration
+Options -MultiViews
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Force HTTPS
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # Strip trailing slash on .html files
+  RewriteRule ^(.+)/$ /$1 [L,R=301]
+</IfModule>
+
+# ---- 301 redirects: legacy WordPress URLs → new URLs ----
+Redirect 301 /about_us/ /about.html
+Redirect 301 /rooms/ /rooms.html
+Redirect 301 /dining/ /dining.html
+Redirect 301 /banquet-2/ /banquet.html
+Redirect 301 /gallery/ /gallery.html
+Redirect 301 /contact/ /contact.html
+Redirect 301 /booknow/ /index.html#book
+Redirect 301 /dormitory/ /rooms.html
+Redirect 301 /travel-package/ /nearby-attractions.html
+Redirect 301 /career-with-us/ /contact.html
+Redirect 301 /termsandconditions/ /terms.html
+Redirect 301 /refundcancellation-policy/ /cancellation.html
+Redirect 301 /privacy-policy/ /privacy-policy.html
+
+ErrorDocument 404 /404.html
+
+# ---- Caching ----
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>

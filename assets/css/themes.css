@@ -1,0 +1,122 @@
+/* Pearl Courtyard colour themes. Switch with <html data-theme="name">. Default: emerald. */
+
+:root,
+html[data-theme="emerald"] {
+  /* Royal Emerald */
+  --ivory: #f6f1e7; --ivory-2: #eee5d3; --ivory-3: #e8dac2; --sand: #e0cdac; --white: #fffdf8;
+  --gold: #c6a66b; --gold-light: #d1b888; --gold-deep: #a98441;
+  --gold-rgb: 198,166,107; --gold-light-rgb: 209,184,136;
+  --maroon: #123d35; --maroon-deep: #0c2822; --maroon-mid: #1a594d;
+  --maroon-rgb: 18,61,53; --maroon-deep-rgb: 12,40,34;
+  --brown: #0a221d; --ink: #061513;
+  --dark-rgb: 7,24,21; --shadow-rgb: 5,18,16; --ink-rgb: 6,21,19;
+  --dark-2: #0d2b25; --dark-3: #091e1a; --dark-4: #10362f;
+  --muted: #56736a; --muted-ink: #0e312a;
+  --line: rgba(6,21,19, 0.14);
+  --grad-primary: linear-gradient(135deg, #1a594d 0%, #123d35 55%, #0c2822 100%);
+  --grad-gold: linear-gradient(135deg, #d1b888 0%, #c6a66b 55%, #a98441 100%);
+  --grad-gold-h: linear-gradient(90deg, #a98441, #d1b888);
+  --grad-dark: linear-gradient(155deg, #10362f 0%, #0d2b25 45%, #091e1a 100%);
+}
+
+html[data-theme="sapphire"] {
+  /* Midnight Sapphire */
+  --ivory: #f3f1ea; --ivory-2: #ede6d6; --ivory-3: #e8ddc4; --sand: #e2d1ae; --white: #fffdf8;
+  --gold: #cfae6b; --gold-light: #d9bf8a; --gold-deep: #b78e3b;
+  --gold-rgb: 207,174,107; --gold-light-rgb: 217,191,138;
+  --maroon: #14294f; --maroon-deep: #0d1b33; --maroon-mid: #1b386b;
+  --maroon-rgb: 20,41,79; --maroon-deep-rgb: 13,27,51;
+  --brown: #0b172b; --ink: #070e1c;
+  --dark-rgb: 8,16,32; --shadow-rgb: 6,12,24; --ink-rgb: 7,14,28;
+  --dark-2: #0e1d37; --dark-3: #0a1428; --dark-4: #122446;
+  --muted: #57657e; --muted-ink: #10213f;
+  --line: rgba(7,14,28, 0.14);
+  --grad-primary: linear-gradient(135deg, #1b386b 0%, #14294f 55%, #0d1b33 100%);
+  --grad-gold: linear-gradient(135deg, #d9bf8a 0%, #cfae6b 55%, #b78e3b 100%);
+  --grad-gold-h: linear-gradient(90deg, #b78e3b, #d9bf8a);
+  --grad-dark: linear-gradient(155deg, #122446 0%, #0e1d37 45%, #0a1428 100%);
+}
+
+html[data-theme="burgundy"] {
+  /* Imperial Burgundy */
+  --ivory: #f8f3e9; --ivory-2: #eee4d3; --ivory-3: #e5d7c0; --sand: #dac6a8; --white: #fffdf8;
+  --gold: #b99560; --gold-light: #c5a87c; --gold-deep: #927140;
+  --gold-rgb: 185,149,96; --gold-light-rgb: 197,168,124;
+  --maroon: #5c1a20; --maroon-deep: #3c1115; --maroon-mid: #78222a;
+  --maroon-rgb: 92,26,32; --maroon-deep-rgb: 60,17,21;
+  --brown: #330e12; --ink: #20090b;
+  --dark-rgb: 37,10,13; --shadow-rgb: 28,8,10; --ink-rgb: 32,9,11;
+  --dark-2: #401216; --dark-3: #2e0d10; --dark-4: #51171c;
+  --muted: #8b5b5c; --muted-ink: #4a151a;
+  --line: rgba(32,9,11, 0.14);
+  --grad-primary: linear-gradient(135deg, #78222a 0%, #5c1a20 55%, #3c1115 100%);
+  --grad-gold: linear-gradient(135deg, #c5a87c 0%, #b99560 55%, #927140 100%);
+  --grad-gold-h: linear-gradient(90deg, #927140, #c5a87c);
+  --grad-dark: linear-gradient(155deg, #51171c 0%, #401216 45%, #2e0d10 100%);
+}
+
+html[data-theme="teal"] {
+  /* Peacock Teal & Copper */
+  --ivory: #f6efe6; --ivory-2: #f0e0d0; --ivory-3: #ebd2bd; --sand: #e4c2a5; --white: #fffdf8;
+  --gold: #d0905c; --gold-light: #d9a67c; --gold-deep: #b16c33;
+  --gold-rgb: 208,144,92; --gold-light-rgb: 217,166,124;
+  --maroon: #0f4048; --maroon-deep: #0a2a2f; --maroon-mid: #155a66;
+  --maroon-rgb: 15,64,72; --maroon-deep-rgb: 10,42,47;
+  --brown: #082328; --ink: #051619;
+  --dark-rgb: 6,26,29; --shadow-rgb: 5,19,22; --ink-rgb: 5,22,25;
+  --dark-2: #0a2d32; --dark-3: #082024; --dark-4: #0d383f;
+  --muted: #547477; --muted-ink: #0c333a;
+  --line: rgba(5,22,25, 0.14);
+  --grad-primary: linear-gradient(135deg, #155a66 0%, #0f4048 55%, #0a2a2f 100%);
+  --grad-gold: linear-gradient(135deg, #d9a67c 0%, #d0905c 55%, #b16c33 100%);
+  --grad-gold-h: linear-gradient(90deg, #b16c33, #d9a67c);
+  --grad-dark: linear-gradient(155deg, #0d383f 0%, #0a2d32 45%, #082024 100%);
+}
+
+html[data-theme="plum"] {
+  /* Royal Plum */
+  --ivory: #f6f0ea; --ivory-2: #f1e6d8; --ivory-3: #ecdec8; --sand: #e6d4b4; --white: #fffdf8;
+  --gold: #d4b47a; --gold-light: #dec599; --gold-deep: #c39644;
+  --gold-rgb: 212,180,122; --gold-light-rgb: 222,197,153;
+  --maroon: #40204f; --maroon-deep: #2a1533; --maroon-mid: #552a68;
+  --maroon-rgb: 64,32,79; --maroon-deep-rgb: 42,21,51;
+  --brown: #23122b; --ink: #160b1c;
+  --dark-rgb: 26,13,32; --shadow-rgb: 19,10,24; --ink-rgb: 22,11,28;
+  --dark-2: #2d1637; --dark-3: #201028; --dark-4: #381c46;
+  --muted: #775e7e; --muted-ink: #331a3f;
+  --line: rgba(22,11,28, 0.14);
+  --grad-primary: linear-gradient(135deg, #552a68 0%, #40204f 55%, #2a1533 100%);
+  --grad-gold: linear-gradient(135deg, #dec599 0%, #d4b47a 55%, #c39644 100%);
+  --grad-gold-h: linear-gradient(90deg, #c39644, #dec599);
+  --grad-dark: linear-gradient(155deg, #381c46 0%, #2d1637 45%, #201028 100%);
+}
+
+html[data-theme="marigold"] {
+  /* Marigold Terracotta */
+  --ivory: #fbf3e4; --ivory-2: #f7e7cc; --ivory-3: #f4ddb6; --sand: #f0d09c; --white: #fffdf8;
+  --gold: #e2ab4c; --gold-light: #e8bb6f; --gold-deep: #c68920;
+  --gold-rgb: 226,171,76; --gold-light-rgb: 232,187,111;
+  --maroon: #7a2f1b; --maroon-deep: #4f1f12; --maroon-mid: #973a21;
+  --maroon-rgb: 122,47,27; --maroon-deep-rgb: 79,31,18;
+  --brown: #431a0f; --ink: #2b1009;
+  --dark-rgb: 49,19,11; --shadow-rgb: 37,14,8; --ink-rgb: 43,16,9;
+  --dark-2: #552113; --dark-3: #3d180e; --dark-4: #6b2918;
+  --muted: #a16a57; --muted-ink: #622616;
+  --line: rgba(43,16,9, 0.14);
+  --grad-primary: linear-gradient(135deg, #973a21 0%, #7a2f1b 55%, #4f1f12 100%);
+  --grad-gold: linear-gradient(135deg, #e8bb6f 0%, #e2ab4c 55%, #c68920 100%);
+  --grad-gold-h: linear-gradient(90deg, #c68920, #e8bb6f);
+  --grad-dark: linear-gradient(155deg, #6b2918 0%, #552113 45%, #3d180e 100%);
+}
+
+/* Theme switcher */
+.theme-sw { position: fixed; left: 16px; bottom: 16px; z-index: 90; display: flex; align-items: center; gap: 10px; }
+.theme-sw__toggle { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--gold); background: var(--grad-primary); box-shadow: var(--shadow-md); display: grid; place-items: center; cursor: pointer; transition: transform .4s var(--spring); }
+.theme-sw__toggle:hover { transform: scale(1.08) rotate(20deg); }
+.theme-sw__toggle span { width: 20px; height: 20px; border-radius: 50%; background: var(--grad-gold); }
+.theme-sw__panel { display: flex; gap: 8px; padding: 8px 10px; border-radius: 999px; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); box-shadow: var(--shadow-md); opacity: 0; visibility: hidden; transform: translateX(-10px); transition: opacity .3s, transform .4s var(--spring), visibility .3s; }
+.theme-sw.is-open .theme-sw__panel { opacity: 1; visibility: visible; transform: none; }
+.theme-sw__opt { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18); cursor: pointer; transition: transform .3s var(--spring); }
+.theme-sw__opt:hover { transform: scale(1.18); }
+.theme-sw__opt.is-on { box-shadow: 0 0 0 2px var(--gold-deep); }
+@media (max-width: 640px) { .theme-sw { bottom: 84px; } .theme-sw__panel { gap: 6px; padding: 6px 8px; } }

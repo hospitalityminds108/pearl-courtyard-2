@@ -899,3 +899,23 @@ main, footer { overflow-x: clip; }
 .section-head { margin-bottom: clamp(1.4rem, 3vw, 2.2rem); }
 .section--flush-top { padding-top: 0; }
 @media (max-width: 720px) { :root { --space-2xl: 2.4rem; } .footer__top { gap: 2rem; } }
+
+/* ==========================================================================
+   29. LOGO: larger, standalone mark in the header
+   ========================================================================== */
+.header__brand-text { display: none; }
+.header__brand { flex: 0 0 auto; }
+.header__inner { padding-block: 0.45rem; }
+.header__brand img, .header.is-scrolled .header__brand img { width: 64px; height: auto; transition: width 0.5s var(--ease); }
+.header.is-scrolled .header__brand img { width: 54px; }
+@media (max-width: 1180px) { .header__brand img, .header.is-scrolled .header__brand img { width: 58px; } .header.is-scrolled .header__brand img { width: 50px; } }
+@media (max-width: 480px) { .header__brand img, .header.is-scrolled .header__brand img { width: 52px; } .header.is-scrolled .header__brand img { width: 46px; } }
+
+/* logo, bigger again */
+:root { --header-h: 118px; }
+.header__inner { padding-block: 0.4rem; }
+.header__brand img, .header.is-scrolled .header__brand img { width: 92px; }
+.header.is-scrolled .header__brand img { width: 74px; }
+@media (max-width: 1180px) { :root { --header-h: 104px; } .header__brand img, .header.is-scrolled .header__brand img { width: 80px; } .header.is-scrolled .header__brand img { width: 66px; } }
+@media (max-width: 720px) { :root { --header-h: 92px; } .header__brand img, .header.is-scrolled .header__brand img { width: 70px; } .header.is-scrolled .header__brand img { width: 60px; } }
+@media (max-width: 380px) { .header__brand img, .header.is-scrolled .header__brand img { width: 62px; } .header.is-scrolled .header__brand img { width: 54px; } }

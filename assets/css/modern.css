@@ -881,3 +881,21 @@ main, footer { overflow-x: clip; }
 
 /* no custom cursor: the normal system pointer is used everywhere */
 .cursor, .cursor-dot { display: none !important; }
+
+/* ==========================================================================
+   28. RESPONSIVE POLISH: no wrapped buttons, tighter and even section rhythm
+   ========================================================================== */
+.booking-bar__form .btn { min-width: max-content; white-space: nowrap; }
+.hero__actions .btn, .btn--sm, .rail__btn, .reviews2__btn { white-space: nowrap; }
+@media (max-width: 480px) {
+  .hero__actions { flex-wrap: nowrap; }
+  .hero__actions .btn { flex: 1 1 0; min-width: 0; padding-inline: 0.8rem; font-size: 0.78rem; }
+}
+@media (max-width: 360px) {
+  .hero__actions { flex-wrap: wrap; }
+  .hero__actions .btn { flex: 1 1 100%; }
+}
+:root { --space-2xl: clamp(2.4rem, 1rem + 3.2vw, 4.25rem); }
+.section-head { margin-bottom: clamp(1.4rem, 3vw, 2.2rem); }
+.section--flush-top { padding-top: 0; }
+@media (max-width: 720px) { :root { --space-2xl: 2.4rem; } .footer__top { gap: 2rem; } }

@@ -209,23 +209,101 @@
     const slides = $$('.hero__slide', hero);
     const dots = $$('.hero__dot', hero);
     if (slides.length < 2) return;
-    let i = 0, timer = null;
-    function go(n) {
-      i = (n + slides.length) % slides.length;
-      slides.forEach((s, k) => s.classList.toggle('is-active', k === i));
-      dots.forEach((d, k) => d.classList.toggle('is-active', k === i));
+    const prevBtn = $('.hero__arrow--prev', hero);
+    const nextBtn = $('.hero__arrow--next', hero);
+    const toggle = $('.hero__toggle', hero);
+    const bar = $('.hero__bar', hero);
+    const DURATION = 4000;              // ms each slide stays up
+    let i = Math.max(0, slides.findIndex((s) => s.classList.contains('is-active')));
+    let elapsed = 0, last = 0;
+    // reasons to hold the current slide: viewer paused it, is using the controls,
+    // the tab is hidden, or the hero is scrolled out of view
+    let userPaused = prefersReduced, overControls = false, focusInside = false, offscreen = false;
+
+    function setProgress(p) { if (dots[i]) dots[i].style.setProperty('--p', p.toFixed(4)); }
+    function go(n, dir) {
+      const to = (n + slides.length) % slides.length;
+      if (to === i) return;
+      dir = dir || (to > i ? 'next' : 'prev');
+      slides.forEach((s) => s.classList.remove('is-leaving', 'to-next', 'to-prev', 'is-entering-next', 'is-entering-prev'));
+      void slides[to].offsetWidth;      // restart the wipe if this slide was mid-animation
+      slides[i].classList.remove('is-active');
+      slides[i].classList.add('is-leaving', 'to-' + dir);
+      slides[to].classList.add('is-active', 'is-entering-' + dir);
+      slides.forEach((s, k) => s.setAttribute('aria-hidden', k === to ? 'false' : 'true'));
+      dots.forEach((d, k) => {
+        d.classList.toggle('is-active', k === to);
+        if (k === to) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
+        d.style.setProperty('--p', '0');
+      });
+      i = to; elapsed = 0;
     }
-    function start() {
-      stop();
-      if (prefersReduced) return;
-      timer = setInterval(() => go(i + 1), 7200);
+    // once the incoming slide has fully wiped in, drop the one underneath
+    slides.forEach((s) => s.addEventListener('animationend', (e) => {
+      if (e.target !== s || !s.classList.contains('is-active')) return;
+      s.classList.remove('is-entering-next', 'is-entering-prev');
+      slides.forEach((o) => { if (o !== s) o.classList.remove('is-leaving', 'to-next', 'to-prev'); });
+    }));
+
+    function held() { return userPaused || overControls || focusInside || offscreen || document.hidden; }
+    function tick(t) {
+      const dt = last ? Math.min(t - last, 1000) : 0;   // cap so a stalled frame can't skip a slide
+      last = t;
+      if (!held()) {
+        elapsed += dt;
+        setProgress(Math.min(1, elapsed / DURATION));
+        if (elapsed >= DURATION) go(i + 1, 'next');
+      }
+      requestAnimationFrame(tick);
     }
-    function stop() { if (timer) clearInterval(timer); }
-    dots.forEach((d, k) => d.addEventListener('click', () => { go(k); start(); }));
-    hero.addEventListener('mouseenter', stop);
-    hero.addEventListener('mouseleave', start);
-    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
-    start();
+
+    function setPaused(p) {
+      userPaused = p;
+      if (!toggle) return;
+      toggle.classList.toggle('is-paused', p);
+      toggle.setAttribute('aria-label', p ? 'Play slideshow' : 'Pause slideshow');
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () => go(i - 1, 'prev'));
+    if (nextBtn) nextBtn.addEventListener('click', () => go(i + 1, 'next'));
+    dots.forEach((d, k) => d.addEventListener('click', () => go(k)));
+    if (toggle) toggle.addEventListener('click', () => setPaused(!userPaused));
+
+    // pause while the pointer is on a control or keyboard focus is in the slider
+    [prevBtn, nextBtn, bar].forEach((el) => {
+      if (!el) return;
+      el.addEventListener('mouseenter', () => { overControls = true; });
+      el.addEventListener('mouseleave', () => { overControls = false; });
+    });
+    hero.addEventListener('focusin', () => { focusInside = true; });
+    hero.addEventListener('focusout', (e) => { if (!hero.contains(e.relatedTarget)) focusInside = false; });
+    hero.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(i - 1, 'prev'); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1, 'next'); }
+    });
+
+    // swipe on touch screens; vertical drags still scroll the page
+    let sx = 0, sy = 0, tracking = false;
+    hero.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' || e.target.closest('button')) return;
+      sx = e.clientX; sy = e.clientY; tracking = true;
+    });
+    hero.addEventListener('pointerup', (e) => {
+      if (!tracking) return;
+      tracking = false;
+      const dx = e.clientX - sx, dy = e.clientY - sy;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) go(dx < 0 ? i + 1 : i - 1, dx < 0 ? 'next' : 'prev');
+    });
+    hero.addEventListener('pointercancel', () => { tracking = false; });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((en) => { offscreen = !en[0].isIntersecting; }, { threshold: 0.25 }).observe(hero);
+    }
+    // the first slide is the LCP image; fetch the rest once the page has loaded
+    window.addEventListener('load', () => slides.forEach((s) => { const im = $('img', s); if (im) im.loading = 'eager'; }));
+
+    setPaused(userPaused);
+    requestAnimationFrame(tick);
   }
 
   /* ---------------------------------------------------------------------

@@ -919,3 +919,82 @@ main, footer { overflow-x: clip; }
 @media (max-width: 1180px) { :root { --header-h: 104px; } .header__brand img, .header.is-scrolled .header__brand img { width: 80px; } .header.is-scrolled .header__brand img { width: 66px; } }
 @media (max-width: 720px) { :root { --header-h: 92px; } .header__brand img, .header.is-scrolled .header__brand img { width: 70px; } .header.is-scrolled .header__brand img { width: 60px; } }
 @media (max-width: 380px) { .header__brand img, .header.is-scrolled .header__brand img { width: 62px; } .header.is-scrolled .header__brand img { width: 54px; } }
+
+/* HOME HERO SLIDER ---------------------------------------------------------
+   Text-free, full-bleed photo slider (index.html). Slides wipe in from the
+   side they're travelling towards; JS in main.js (HeroSlider) drives it. */
+.hero--slider::after { display: none; }
+.hero--slider .hero__media::after {
+  z-index: 3; pointer-events: none;
+  background: linear-gradient(180deg, rgba(var(--dark-rgb), 0.5) 0%, rgba(var(--dark-rgb), 0) 24%, rgba(var(--dark-rgb), 0) 70%, rgba(var(--dark-rgb), 0.5) 100%);
+}
+.hero--slider .hero__media { touch-action: pan-y; }
+.hero--slider .hero__slide { opacity: 1; visibility: hidden; z-index: 0; transition: none; }
+.hero--slider .hero__slide.is-active { visibility: visible; z-index: 2; }
+.hero--slider .hero__slide.is-leaving { visibility: visible; z-index: 1; }
+.hero--slider .hero__slide.is-entering-next { animation: heroWipeNext 0.8s var(--ease) both; }
+.hero--slider .hero__slide.is-entering-prev { animation: heroWipePrev 0.8s var(--ease) both; }
+.hero--slider .hero__slide.is-leaving.to-next img { animation: heroLeaveNext 0.8s var(--ease) both; }
+.hero--slider .hero__slide.is-leaving.to-prev img { animation: heroLeavePrev 0.8s var(--ease) both; }
+@keyframes heroWipeNext { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@keyframes heroWipePrev { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes heroLeaveNext { from { transform: scale(1.02); } to { transform: translateX(-7%) scale(1.02); } }
+@keyframes heroLeavePrev { from { transform: scale(1.02); } to { transform: translateX(7%) scale(1.02); } }
+
+.hero__arrow {
+  position: absolute; top: 50%; z-index: 4; translate: 0 -50%;
+  width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
+  color: #fff; background: rgba(0, 0, 0, 0.24); border: 1px solid rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease), scale 0.3s var(--ease);
+}
+.hero__arrow--prev { left: clamp(1rem, 3vw, 2.6rem); }
+.hero__arrow--next { right: clamp(1rem, 3vw, 2.6rem); }
+.hero__arrow:hover { background: rgba(var(--gold-light-rgb), 0.9); border-color: transparent; scale: 1.06; }
+.hero__arrow:active { scale: 0.96; }
+
+.hero__bar {
+  position: absolute; left: 50%; bottom: 1.3rem; z-index: 4; translate: -50% 0;
+  display: flex; align-items: center; gap: 0.7rem; padding: 0.45rem 0.5rem 0.45rem 0.85rem; border-radius: 999px;
+  background: rgba(0, 0, 0, 0.28); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+.hero--slider .hero__dots {
+  position: static; transform: none; padding: 0; background: none; -webkit-backdrop-filter: none; backdrop-filter: none;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+/* 24px-tall buttons (easy to tap); the visible 6px bar is drawn inside */
+.hero--slider .hero__dot {
+  position: relative; width: 22px; height: 24px; padding: 0; border: 0; border-radius: 0;
+  background: none; overflow: visible; cursor: pointer; transition: width 0.7s var(--ease);
+}
+.hero--slider .hero__dot::before, .hero--slider .hero__dot.is-active::after {
+  content: ""; position: absolute; inset: 50% 0 auto 0; height: 6px; margin-top: -3px; border-radius: 99px;
+}
+.hero--slider .hero__dot::before { background: rgba(248, 243, 233, 0.38); transition: background 0.4s; }
+.hero--slider .hero__dot:hover::before { background: rgba(248, 243, 233, 0.65); }
+.hero--slider .hero__dot.is-active { width: 52px; background: none; }
+.hero--slider .hero__dot.is-active::before { background: rgba(255, 255, 255, 0.28); }
+.hero--slider .hero__dot.is-active::after { background: var(--gold-light); transform-origin: left; transform: scaleX(var(--p, 0)); animation: none; }
+.hero__toggle {
+  width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; flex: none;
+  color: #fff; background: rgba(255, 255, 255, 0.14); border: 0; cursor: pointer; transition: background 0.3s var(--ease);
+}
+.hero__toggle:hover { background: rgba(var(--gold-light-rgb), 0.9); }
+.hero__toggle .hero__icon-play, .hero__toggle.is-paused .hero__icon-pause { display: none; }
+.hero__toggle.is-paused .hero__icon-play { display: block; }
+.hero__arrow:focus-visible, .hero__toggle:focus-visible, .hero--slider .hero__dot:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
+html:not(.js) .hero__arrow, html:not(.js) .hero__bar { display: none; }
+
+@media (max-width: 720px) {
+  .hero__arrow { width: 42px; height: 42px; }
+  .hero__arrow svg { width: 18px; height: 18px; }
+  /* compact enough to clear the floating call button on the right */
+  .hero__bar { bottom: 0.9rem; gap: 0.5rem; padding: 0.35rem 0.4rem 0.35rem 0.7rem; }
+  .hero--slider .hero__dots { gap: 0.3rem; }
+  .hero--slider .hero__dot { width: 14px; }
+  .hero--slider .hero__dot.is-active { width: 34px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero--slider .hero__slide, .hero--slider .hero__slide img { animation: none !important; }
+}
+@media print { .hero__arrow, .hero__bar { display: none !important; } }
